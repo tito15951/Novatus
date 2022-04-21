@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from apiNovatus.views import User
+from django.views.decorators.csrf import csrf_exempt
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #path('api/',include('apiNovatus.urls')),
+    path('api/user',csrf_exempt(User.as_view()),name='crear_usuario'),
 ]
