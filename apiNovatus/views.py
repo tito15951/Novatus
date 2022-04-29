@@ -43,7 +43,7 @@ class User(View):
                     return JsonResponse({'Resp':'Error al crear el usuario'},safe=False,status=202)
             else:
                 return JsonResponse({'Resp':'Faltan datos'},safe=False,status=400)
-        
         else:
             return JsonResponse({'Resp':'No implementado'},safe=False,status=404)
+
 

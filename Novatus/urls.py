@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('api/',include('apiNovatus.urls')),
     path('api/user',csrf_exempt(User.as_view()),name='crear_usuario'),
+    #path('api/user',User.as_view(),name='crear_usuario'),
 ]
