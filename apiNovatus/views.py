@@ -1,9 +1,16 @@
 from asyncio.windows_events import NULL
 from django.shortcuts import render
-from .models import Usuario
+from .models import Usuario, Producto
 from django.views import View
 from django.http import JsonResponse
 
+class Product(View):
+    def get(self,request):
+        if('listar' in request.GET):
+            product=Producto.objects.all()
+            return JsonResponse(list(product.values('id','nombre')),safe=False,status=200)
+        else:
+            return JsonResponse({'Resp':'No implementado'},safe=False,status=404)
 
 # Create your views here.
 class User(View):
@@ -13,6 +20,7 @@ class User(View):
             return JsonResponse(list(users.values('correo','nombre')),safe=False,status=200)
         else:
             return JsonResponse({'Resp':'No implementado'},safe=False,status=404)
+
 
     def post(self,request):
         if('login' in request.POST):
@@ -27,7 +35,7 @@ class User(View):
             else:
                 return JsonResponse({'Resp':'Faltan datos'},safe=False,status=400)
 
-                
+
         elif('create' in request.POST):
             if(('correo' in request.POST) and ('nombre' in request.POST) and ('contrasenia' in request.POST)):
                 try:
@@ -45,5 +53,3 @@ class User(View):
                 return JsonResponse({'Resp':'Faltan datos'},safe=False,status=400)
         else:
             return JsonResponse({'Resp':'No implementado'},safe=False,status=404)
-
-
