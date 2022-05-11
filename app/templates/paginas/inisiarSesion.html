@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{%block contenido%}
+
+<div class="col-md-5 mx-auto">
+    <div class="card">
+        <div class="card-title">Novatus</div>
+        <br>
+        <div class="col-md-8 mx-auto">
+            <div class="row">
+                <label for="exampleFormControlInput1" class="form-label">Correo electrónico</label>
+            </div>
+            <div class="row">
+                <input type="email" class="correo" id="correo" class="form-control" autocomplete="off" placeholder="Su correo">
+            </div>
+            <br>
+            <div class="row">
+                <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+            </div>
+            <div class="row">
+                <input type="password" class="contrasena" id="contrasena" class="form-control" autocomplete="off" placeholder="Su contraseña">
+            </div>
+            <br>
+            <div class="row">
+                <button type="button" class="btn btn-success">Iniciar</button>
+            </div>
+            <br>
+            <div class="row">
+                <button type="button" class="btn btn-link">Olvidé mi contraseña</button>
+            </div>
+          </div>
+    </div>
+</div>
+{%endblock%}
