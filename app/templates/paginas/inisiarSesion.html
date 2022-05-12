@@ -6,6 +6,9 @@
         <div class="card-title text-center">Titulo</div>
         <br>
         <div class="col-md-6 mx-auto">
+            <form method="post"  enctype="multipart/form-data" action="logearse">
+
+            {% csrf_token %}
             <div class="row">
                 <label for="exampleFormControlInput1" class="form-label">Correo electrónico</label>
             </div>
@@ -21,12 +24,14 @@
             </div>
             <br>
             <div class="row">
-                <button type="button" class="btn btn-success">Iniciar</button>
+                <button type="submit" class="btn btn-success">Iniciar</button>
             </div>
+        </form>
             <br>
             <div class="row">
-                <button type="button" class="btn btn-link">Olvidé mi contraseña</button>
+                <button type="button" class="btn btn-link hipervinculos">Olvidé mi contraseña</button>
             </div>
+        
           </div>
     </div>
 </div>

@@ -34,8 +34,8 @@ class User(View):
                 except:
                     return JsonResponse({'Resp':False},safe=False,status=400)
                 try:
-                    newUser=Usuario.objects.create(correo=correoRequest,nombre=nombreRequest,contrasenia=contraseniaRequest)
-                    return JsonResponse({'Resp':True,'id':newUser.pk},safe=False,status=201)
+                    newUser=Usuario.objects.create(correo=correoRequest,nombre=nombreRequest,contrasenia=contraseniaRequest,direccion="nulo",telefono="nulo",rol="admin")
+                    return JsonResponse({'Resp':True},safe=False,status=201)
                 except:
                     return JsonResponse({'Resp':False},safe=False,status=202)
             else:
