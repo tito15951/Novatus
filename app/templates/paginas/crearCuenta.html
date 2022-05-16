@@ -3,8 +3,22 @@
 
 <div class="col-md-4 mx-auto">
     <div class="card card-center" style="margin-top: 7% !important; padding-bottom: 5%;">
+        {%if messages%}
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                {%for mensage in messages%}
+                <div class="alert alert-danger" role="alert">
+                    {{mensage}}
+                  </div>
+                {%endfor%}
+            </div>
+        </div>
+        {%endif%}        
         <div class="card-title text-center">Titulo</div>
         <br>
+        <form action='crearCuentaPeticion' method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+
         <div class="col-md-6 mx-auto">
             <div class="row">
                 <label for="exampleFormControlInput1" class="form-label">Nombre</label>
@@ -30,19 +44,20 @@
                 <label for="exampleFormControlInput1" class="form-label">Marca de motocicleta</label>
             </div>
             <div class="row">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Seleccione una marca</option>
+                <select class="form-select" id="moto" name="moto" aria-label="Default select example">
+                    <option selected value="null">Seleccione una marca</option>
                     {%for marca in marcas%}
                     <option value="{{marca}}">{{marca}}</option>
                     {%endfor%}
                   </select>
             </div>
             <br>
-            
             <div class="row">
-                <button type="button" class="btn btn-success">Crear</button>
+                <button type="submit" class="btn btn-success">Crear</button>
             </div>
           </div>
+        </form>
+
     </div>
 </div>
 {%endblock%}

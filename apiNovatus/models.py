@@ -9,9 +9,10 @@ class Usuario(models.Model):
     id=models.TextField(max_length=15,null=True)
     nombre=models.TextField(max_length=30,null=False)
     contrasenia=models.TextField(max_length=20,null=False)
-    direccion=models.TextField(max_length=20,null=False)
+    direccion=models.TextField(max_length=20,null=True)
     telefono=models.TextField(max_length=10,null=True)
-    rol=models.TextField(max_length=10,null=False)
+    rol=models.TextField(max_length=10,null=False,default='cliente')
+    marca_moto=models.TextField(max_length=10,default='Yamaha')
 
     def __str__(self):
         return self.nombre+'-'+self.correo+'-'+self.rol

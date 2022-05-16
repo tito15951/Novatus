@@ -12,5 +12,17 @@ class Servicios:
         }
         resp=requests.post(dir,datos)
         return resp.json()
+    
+    def registrarse(self,correo,nombre,contrasena,moto):
+        dir=self.dir+"usuarios"
+        datos={
+            'create':'',
+            'correo':correo,
+            'nombre':nombre,
+            'contrasenia':contrasena,
+            'moto':moto
+        }
+        resp=requests.post(dir,datos)
+        return resp.json()
         
     #def registrarse(self,correo,contrasena,nombre, )
