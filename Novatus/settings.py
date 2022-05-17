@@ -14,7 +14,8 @@ SECRET_KEY = '^$md2qk-22!m&7rt)lq140y8tk!ngv%cy^o&!u5-(99il=aqj#'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-STATICFILES_DIRS=['C:/Users/Javier Martinez/Desktop/Novatus/Novatus/app/templates/static']
+#STATICFILES_DIRS=['C:/Users/Javier Martinez/Desktop/Novatus/Novatus/app/templates/static']
+STATICFILES_DIRS=["C:/Users/quint/Desktop/Semestre IX/Ingenieria de Software III/Final/Novatus/app/templates/static"]
 
 
 # Application definition
