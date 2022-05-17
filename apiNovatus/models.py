@@ -12,15 +12,6 @@ class Usuario(models.Model):
     def __str__(self):
         return self.nombre+'-'+self.correo+'-'+self.rol
 
-class Comentario(models.Model):
-    id=models.BigAutoField(primary_key=True)
-    id_usuario=models.ForeignKey(Usuario,on_delete=models.CASCADE)
-    id_administrador=models.ForeignKey(Usuario,on_delete=models.CASCADE)
-    opinion=models.TextField(max_length=200,null=False)
-
-    def __str__(self):
-        return str(self.id)+' '+str(self.id_usuario.correo)+' '+self.id_producto.nombre
-
 class Tienda(models.Model):
     id=models.BigAutoField(primary_key=True)
     nombre=models.TextField(max_length=20,null=False)
@@ -37,12 +28,25 @@ class Cita(models.Model):
     id_tienda=models.ForeignKey(Tienda,on_delete=models.CASCADE)
     id_usuario=models.ForeignKey(Usuario,on_delete=models.CASCADE)
     hora=models.DateTimeField(null=False)
-    duracion=models.IntegerField(null=False)
+    duracion=models.IntegerField(null=False,default=0)
     descripcion=models.TextField(max_length=200,null=False)
-    placa_moto=models.TextField(max_length=6,null=False)
+    placa_moto=models.TextField(max_length=6,null=False,default="")
 
     def __str__(self):
         return self.id_usuario.correo+' '+str(self.hora)+' '+self.id_tienda.nombre
+
+class Comentario(models.Model):
+    id=models.BigAutoField(primary_key=True)
+    id_usuario=models.ForeignKey(Usuario,on_delete=models.CASCADE)
+    id_cita=models.ForeignKey(Cita,on_delete=models.CASCADE,null=True)
+    opinion=models.TextField(max_length=200,null=False)
+
+    def __str__(self):
+        return str(self.id)+' '+str(self.id_usuario.correo)+' '+self.id_producto.nombre
+
+
+
+
         
 class MedioPago(models.Model):
     id=models.BigAutoField(primary_key=True)
@@ -52,7 +56,3 @@ class MedioPago(models.Model):
     fecha_venc=models.TextField(max_length=5,null=False)
     def __str__(self):
         return str(self.id_usuario.correo)+'-****'+str(self.num_tarjeta[-4:])
-
-
-
-
