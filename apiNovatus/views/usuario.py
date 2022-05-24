@@ -16,9 +16,9 @@ class User(View):
             if(('correo' in request.POST) and ('contrasenia' in request.POST)):
                 correoRequest=request.POST['correo']
                 contraseniaRequest=request.POST['contrasenia']
-                user=Usuario.objects.filter(correo=correoRequest, contrasenia=contraseniaRequest).first()
+                user=Usuario.objects.filter(correo=correoRequest, contrasenia=contraseniaRequest)
                 if(user.count()>0):
-                    return JsonResponse({'Resp':True,'Rol':user.rol},safe=False,status=200)
+                    return JsonResponse({'Resp':True,'Rol':user.first().rol},safe=False,status=200)
                 else:
                     return JsonResponse({'Resp':False},safe=False,status=200)
             else:
@@ -26,19 +26,20 @@ class User(View):
 
 
         elif('create' in request.POST):
-            if(('correo' in request.POST) and ('nombre' in request.POST) and ('contrasenia' in request.POST) and ('moto' in request.POST)):
+            if(('correo' in request.POST) and 
+                ('nombre' in request.POST) and 
+                ('contrasenia' in request.POST)):
                 try:
                     correoRequest=request.POST['correo']
                     nombreRequest=request.POST['nombre']
                     contraseniaRequest=request.POST['contrasenia']
-                    motoRequest=request.POST['moto']
                 except:
                     return JsonResponse({'Resp':False},safe=False,status=400)
                 try:
                     newUser=Usuario.objects.create(correo=correoRequest,
                                                 nombre=nombreRequest,
                                                 contrasenia=contraseniaRequest,
-                                                marca_moto=motoRequest,
+                                                rol="usuario",
                                                 direccion="nulo",
                                                 telefono="nulo")
                     return JsonResponse({'Resp':True},safe=False,status=201)

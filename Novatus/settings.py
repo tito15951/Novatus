@@ -15,8 +15,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 #STATICFILES_DIRS=['C:/Users/Javier Martinez/Desktop/Novatus/Novatus/app/templates/static']
-STATICFILES_DIRS=["C:/Users/quint/Desktop/Semestre IX/Ingenieria de Software III/Final/Novatus/app/templates/static"]
-
+#STATICFILES_DIRS=["C:/Users/quint/Desktop/Semestre IX/Ingenieria de Software III/Final/Novatus/app/templates/static"]
+STATICFILES_DIRS=["/home/javier159/Escritorio/Semestre 9/Novatus/app/templates/static"]
 
 # Application definition
 
@@ -110,3 +110,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'')
+MEDIA_URL='/imagenes/'

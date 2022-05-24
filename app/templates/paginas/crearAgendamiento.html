@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{%block contenido%}
+
+<div class="card" style="border-color:white;">
+    <div class="card-title" >Novatus</div>
+    <br>
+    <label class="text-center" style="font-size:30px;">Generar reserva</label>
+    <br>
+    <div class="row">
+        <div class="offset-md-2 col-md-3">
+            <div class="row">
+                <label for="exampleFormControlInput1" class="form-label">Taller</label>
+            </div>
+            <div class="row">
+                <input type="text" id="taller" name="taller" class="form-control" placeholder="Desplegable" autocomplete="off">
+            </div>
+        </div>
+        <div class="offset-md-2 col-md-3">
+            <div class="row">
+                <label for="exampleFormControlInput1" class="form-label">Fecha</label>
+            </div>
+            <div class="row">
+                <input type="date" id="fecha" name="fecha" class="form-control" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="offset-md-2 col-md-3">
+            <div class="row">
+                <label for="exampleFormControlInput1" class="form-label">Servicio</label>
+            </div>
+            <div class="row">
+                <input type="text" id="servicio" name="servicio" class="form-control" placeholder="Desplegable" autocomplete="off">
+            </div>
+        </div>
+        <div class="offset-md-2 col-md-3">
+            <div class="row">
+                <label for="exampleFormControlInput1" class="form-label">Hora</label>
+            </div>
+            <div class="row">
+                <input type="time" id="hora" name="hora" class="form-control" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="offset-md-2 col-md-3">
+            <div class="row">
+                <label for="exampleFormControlInput1" class="form-label">Marca de motocicleta</label>
+            </div>
+            <div class="row">
+                <input type="text" id="marca" name="marca" class="form-control" placeholder="Desplegable" autocomplete="off">
+            </div>
+        </div>
+        <div class="offset-md-2 col-md-3">
+            <div class="row">
+                <label for="exampleFormControlInput1" class="form-label">Placa</label>
+            </div>
+            <div class="row">
+                <input type="text" id="placa" name="placa" class="form-control"  placeholder="Placa" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+            <button type="button" class="btn btn-success col-md-8 mx-auto"> Crear</button>
+        
+    </div>
+</div>
+
+{%endblock%}

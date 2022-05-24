@@ -17,7 +17,6 @@ def CrearCuenta(request):
     nombre=request.POST.get('nombre')
     correo=request.POST.get('email')
     contrasena=request.POST.get('contrasena')
-    moto=request.POST.get('moto')
     errores=0
     if len(nombre)<4:
         errores+=1
@@ -28,10 +27,7 @@ def CrearCuenta(request):
     if len(contrasena)<8:
         errores+=1
         messages.error(request,'Ingrese una contraseña mas larga')
-    if moto=="null":
-        errores+=1
-        messages.error(request,'Selecciona la marca de su moto')
-    print('Los datos son: ',nombre,' ',correo,' ',contrasena,' ',moto)
+    print('Los datos son: ',nombre,' ',correo,' ',contrasena)
     if errores==0:
         resp=Servi.registrarse(correo,nombre,contrasena,moto)
         
