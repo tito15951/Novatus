@@ -16,7 +16,7 @@ class Tienda(models.Model):
     nombre=models.TextField(max_length=20,null=False)
     admin=models.ForeignKey(Usuario,on_delete=models.CASCADE)
     direccion=models.TextField(max_length=20,null=False)
-    ciudad=models.TextField(max_length=20,null=False)
+    valoracion=models.IntegerField(default=0, null=False)
     tel=models.TextField(max_length=10,null=False)
 
     def __str__(self):
@@ -37,9 +37,8 @@ class Cita(models.Model):
 class Comentario(models.Model):
     id=models.BigAutoField(primary_key=True)
     id_usuario=models.ForeignKey(Usuario,on_delete=models.CASCADE)
-    id_cita=models.ForeignKey(Cita,on_delete=models.CASCADE,null=True)
-    opinion=models.TextField(max_length=200,null=False)
-
+    id_tienda=models.ForeignKey(Tienda,on_delete=models.CASCADE,null=True)
+    puntuacion=models.IntegerField(null=False,default=0)
     def __str__(self):
         return str(self.id)+' '+str(self.id_usuario.correo)+' '+self.id_producto.nombre
 
