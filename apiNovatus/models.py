@@ -40,7 +40,7 @@ class Comentario(models.Model):
     id_tienda=models.ForeignKey(Tienda,on_delete=models.CASCADE,null=True)
     puntuacion=models.IntegerField(null=False,default=0)
     def __str__(self):
-        return str(self.id)+' '+str(self.id_usuario.correo)+' '+self.id_producto.nombre
+        return str(self.id)+' '+str(self.id_usuario.correo)+' '
 
 
 
