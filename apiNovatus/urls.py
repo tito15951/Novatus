@@ -1,4 +1,5 @@
 from django.urls import path
+from apiNovatus.views.citas import mostrar_citas
 from apiNovatus.views.comentarios import mostrar_comentarios
 from apiNovatus.views.usuario import User
 from apiNovatus.views.talleres import workshops
@@ -10,5 +11,5 @@ urlpatterns = [
     path('usuarios', csrf_exempt(User.as_view()) ,name='usuarios'),
     path('talleres', csrf_exempt(workshops.as_view()) ,name='talleres'),
     path('comentarios', csrf_exempt(mostrar_comentarios.as_view()) ,name='cometarios'),
-    path('citas',csrf_exempt(Citas.as_view()),name='citas')
+    path('citas', csrf_exempt(mostrar_citas.as_view()) ,name='citas'),
 ]
