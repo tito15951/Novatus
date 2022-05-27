@@ -7,8 +7,9 @@ def cerrarSesion(request):
     try:
         del request.session['correo']
         del request.session['rol']
+        return redirect('index')
     except:
-        return redirect('login')
+        return redirect('index')
 
 def logear(request):
     if(request.POST):
@@ -17,12 +18,10 @@ def logear(request):
             contrasena=request.POST.get('contrasena')
             resp=Servi.iniciarSesion(correo,contrasena)
             request.session['correo']=correo
-            request.session['rol']=resp['Resp']
-            print('Guardando en caché correctamente')
+            request.session['rol']=resp['rol']
             return redirect('agendamiento')
         else:
             messages.error('Ingrese todos los campos')
-            print('Faltan datos')
             return HttpResponseRedirect('login')
 def vistaLogin(request):
     try:

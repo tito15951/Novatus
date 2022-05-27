@@ -31,10 +31,15 @@
             </li>
             {%else%}
             <li class="nav-item">
-              <a class="nav-link active" href="#">Talleres</a>
+              <a class="nav-link active" href="{%url 'talleresAliados'%}">Talleres</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">Agendamiento</a>
+              <a class="nav-link active" href="{%url 'agendamiento'%}">Agendamiento</a>
+            </li>
+            {%endif%}
+            {%if rol == 'tienda'%}
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'citasTienda'%}">Citas pendientes</a>
             </li>
             {%endif%}
           </ul>

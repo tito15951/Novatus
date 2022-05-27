@@ -23,5 +23,16 @@ class Servicios:
         }
         resp=requests.post(dir,datos)
         return resp.json()
+    
+    #                TALLERES
+    def listar_talleres(self):
+        dir=self.dir+'talleres?listar'
+        resp=requests.get(dir)
+        return resp.json()
+
+    def listar_citas_taller(self,correo_duenio):
+        dir=self.dir+'citas?listar='+str(correo_duenio)
+        resp=requests.get(dir)
+        return resp.json()
         
     #def registrarse(self,correo,contrasena,nombre, )

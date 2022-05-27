@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{%block contenido%}
+<div class="card" style="border-color: white;">
+    <div class="card-title text-center"><h3>Talleres aliados</h3></div>
+    <div class="row">
+        {%for taller in talleres%}
+        <div class="col-md-3">
+            <div class="card" style="padding: 5%; margin: 5%; border-radius: 20px;">
+                <img src="https://cdn.pixabay.com/photo/2019/06/18/22/46/cooking-4283413_960_720.jpg" style="border-radius: 20px;" alt="100px" width="230px">
+                <div class="row">
+                    <div class="col-md-9">
+                        {%if taller.valoracion >= 1%}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        {%endif%}
+                        {%if taller.valoracion >= 2%}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        {%endif%}
+                        {%if taller.valoracion >= 3%}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        {%endif%}
+                        {%if taller.valoracion >= 4%}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        {%endif%}
+                        {%if taller.valoracion >= 5%}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        {%endif%}
+                        <br>
+                        {{taller.nombre}}
+                    </div>
+                    <div class="col-md-2">
+                        <i class="bi bi-tools text-success" style="font-size:30px;"></i>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+{%endblock%}
