@@ -1,5 +1,5 @@
 from apiNovatus.views.usuario import User
-from ..models import Comentario, Tienda, Usuario 
+from ..models import Comentario, Tienda, Usuario,Cita
 from django.views import View
 from django.http import JsonResponse
 
@@ -14,7 +14,11 @@ class mostrar_comentarios(View):
 
     def post(self, request):
         if('crear_comentario' in request.POST):
-            if(('id_usuario' in request.POST) and ('id_tienda' in request.POST) and ('puntuacion' in request.POST)):
+            if(('id_usuario' in request.POST) and 
+                ('id_tienda' in request.POST) and 
+                ('puntuacion' in request.POST) and
+                'cita' in request.POST):
+                print('creando un nuevo comentario')
                 try:
                     id_usuarioRequest=request.POST['id_usuario']
                     id_tiendaRequest=request.POST['id_tienda']
@@ -22,7 +26,7 @@ class mostrar_comentarios(View):
                     id_usuario=Usuario.objects.filter(correo=id_usuarioRequest).first()
                     id_tienda=Tienda.objects.filter(id=id_tiendaRequest).first()
                 except:
-                    return JsonResponse({'Resp1':False},safe=False,status=400)
+                    return JsonResponse({'Resp':False},safe=False,status=400)
                 try:
                     newcomentario=Comentario.objects.create(id_usuario=id_usuario,
                                                 id_tienda=id_tienda,
@@ -40,6 +44,9 @@ class mostrar_comentarios(View):
                     resultado = puntuacion/contador
 
                     taller=Tienda.objects.filter(id=id_tiendaRequest).update(valoracion= resultado)
+                    
+                    Cita.objects.filter(id=request.POST['cita']).update(estado='finalizado-comentado')
+                    print(f"Comentada exitosamente la cita# {request.POST['cita']}")
 
                     return JsonResponse({'Resp':True},safe=False,status=201)
                 except:

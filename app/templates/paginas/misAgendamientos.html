@@ -9,13 +9,22 @@
                     <div class="col-md-6">
                         <h3>Información de la cita numero {{cita.id}}</h3>
                     </div>
-                    <div class="offset-md-4 col-md-2">
-                        <form action="chat" method="post" enctype="multipart/form-data">
-                            {%csrf_token%}
-                            <input id="id" name="id" style="display:none" value="{{cita.id}}">
-                            <button type="submit" class="btn btn-primary">Chatear</button>
-                        </form>
-
+                    <div class="offset-md-2 col-md-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form action="chat" method="post" enctype="multipart/form-data">
+                                    {%csrf_token%}
+                                    <input id="id" name="id" style="display:none" value="{{cita.id}}">
+                                    <button type="submit" class="btn btn-primary">Chatear</button>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                {%if cita.estado == 'finalizada'%}
+                                <button type="button" class="btn btn-primary calificar" onclick="GuardarDato('{{cita.id}}','{{cita.id_tienda_id}}')" id="calificar" name="calificar" data-bs-toggle="modal" data-bs-target="#modelId">
+                                    Calificar
+                                  </button>{%endif%}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -42,5 +51,127 @@
         {%endfor%}
     </div>
 </div>
+
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Calificar servicio de la tienda</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" enctype="multipart/form-data" action="nuevoComentario">
+                {%csrf_token%}
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        Seleccione la calificación para su servicio:
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-5 mx-auto">
+                            <i class="bi bi-star-fill" id="estre1" onclick="estrella(1)" style="font-size: 30px; color:gray"></i>
+                            <i class="bi bi-star-fill" id="estre2" onclick="estrella(2)" style="font-size: 30px; color:gray"></i>
+                            <i class="bi bi-star-fill" id="estre3" onclick="estrella(3)" style="font-size: 30px; color:gray"></i>
+                            <i class="bi bi-star-fill" id="estre4" onclick="estrella(4)" style="font-size: 30px; color:gray"></i>
+                            <i class="bi bi-star-fill" id="estre5" onclick="estrella(5)" style="font-size: 30px; color:gray"></i>
+                            <input type="text" name="puntuacion" style="display: none;" id="puntuacion" value="0">
+                            <input type="text" name="cita_recibo" id="cita_recibo" style="display: none;" value="0">
+                            <input type="text" name="tienda" id="tienda" style="display: none;" value="0">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Enviar calificación</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .estrella-seleccionada {
+        color: yellow;
+    }
+    
+    .estrella-deseleccionada {
+        color: gray;
+    }
+</style>
+
+<script>
+    function GuardarDato(cita, num_tienda) {
+        cita_recibo = document.getElementById('cita_recibo')
+        tienda = document.getElementById('tienda')
+        cita_recibo.setAttribute('value', cita)
+        tienda.setAttribute('value', num_tienda)
+
+    }
+
+    function estrella(num) {
+        estre1 = document.getElementById('estre1')
+        estre2 = document.getElementById('estre2')
+        estre3 = document.getElementById('estre3')
+        estre4 = document.getElementById('estre4')
+        estre5 = document.getElementById('estre5')
+        final = document.getElementById('puntuacion')
+        final.setAttribute('value', num)
+        if (num == 1) {
+            estre1.style.color = "yellow ";
+            estre2.style.color = "gray ";
+            estre3.style.color = "gray ";
+            estre4.style.color = "gray ";
+            estre5.style.color = "gray ";
+        }
+        if (num == 2) {
+            estre1.style.color = "yellow ";
+            estre2.style.color = "yellow ";
+            estre3.style.color = "gray ";
+            estre4.style.color = "gray ";
+            estre5.style.color = "gray ";
+        }
+        if (num == 3) {
+            estre1.style.color = "yellow ";
+            estre2.style.color = "yellow ";
+            estre3.style.color = "yellow ";
+            estre4.style.color = "gray ";
+            estre5.style.color = "gray ";
+        }
+        if (num == 4) {
+            estre1.style.color = "yellow ";
+            estre2.style.color = "yellow ";
+            estre3.style.color = "yellow ";
+            estre4.style.color = "yellow ";
+            estre5.style.color = "gray ";
+        }
+        if (num == 5) {
+            estre1.style.color = "yellow ";
+            estre2.style.color = "yellow ";
+            estre3.style.color = "yellow ";
+            estre4.style.color = "yellow ";
+            estre5.style.color = "yellow ";
+        }
+
+
+    }
+    var modelId = document.getElementById('modelId');
+
+    modelId.addEventListener('show.bs.modal', function(event) {
+        estre1 = document.getElementById('estre1')
+        estre2 = document.getElementById('estre2')
+        estre3 = document.getElementById('estre3')
+        estre4 = document.getElementById('estre4')
+        estre5 = document.getElementById('estre5')
+        final = document.getElementById('puntuacion')
+        estre1.style.color = "gray ";
+        estre2.style.color = "gray ";
+        estre3.style.color = "gray ";
+        estre4.style.color = "gray ";
+        estre5.style.color = "gray ";
+        final.setAttribute('value', 0)
+        let button = event.relatedTarget;
+        let recipient = button.getAttribute('data-bs-whatever');
+    });
+</script>
+
 
 {%endblock%}

@@ -20,7 +20,10 @@ urlpatterns = [
     path('talleresAliados',viewTalleres.viewTalleres,name='talleresAliados'),
     path('chat',viewChat.vistaChat,name='chat'),
     path('misAgendamientos',viewMisAgendamientos.viewMisAgendamientos,name='misAgendamientos'),
+
+
     #peticiones
+    path('nuevoComentario',viewMisAgendamientos.nuevoComentario,name='nuevoComentario'),
     path('cerrarSesion',viewIniciarSesion.cerrarSesion,name='cerrarSesion'),
     path('logearse',viewIniciarSesion.logear,name='logearse'),
     path('crearCuentaPeticion',viewCrearCuenta.CrearCuenta,name='crearCuentaPeticion'),

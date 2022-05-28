@@ -31,7 +31,7 @@
             <form enctype="multipart/form-data" method="post" action="nuevoMensaje">
                 <div class="input-group mb-3" style="padding: 4%;">
                     {%csrf_token%}
-                    <input type="text" class="form-control" id="mensaje" name="mensaje" placeholder="Escriba su mensaje" aria-describedby="button-addon2">
+                    <input type="text" autocomplete="off" class="form-control" id="mensaje" name="mensaje" placeholder="Escriba su mensaje" aria-describedby="button-addon2">
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Enviar</button>
                 </div>
             </form>

@@ -9,13 +9,19 @@
                     <div class="col-md-6">
                         <h3>Información de la cita numero {{cita.id}}</h3>
                     </div>
-                    <div class="offset-md-4 col-md-2">
+                    <div class="offset-md-2 col-md-2">
                         <form action="chat" method="post" enctype="multipart/form-data">
                             {%csrf_token%}
                             <input id="id" name="id" style="display:none" value="{{cita.id}}">
                             <button type="submit" class="btn btn-primary">Chatear</button>
                         </form>
-
+                    </div>
+                    <div class="auto" id="cita" style="display: none">{{cita.id}}</div>
+                    <div class="col-md-2">
+                        {%if cita.estado == 'activa' %}
+                        <button type="button" class="btn btn-warning finalizar" id="finalizar" name="finalizar">
+                            Finalizar
+                        </button> {%endif%}
                     </div>
                 </div>
             </div>
@@ -37,10 +43,61 @@
                     <textarea class="form-control" aria-label="With textarea" style="border-color: white;">{{cita.descripcion}}</textarea>
                 </div>
             </div>
-
         </div>
         {%endfor%}
     </div>
 </div>
 
+<script>
+    document.getElementById('finalizar').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (e.target.classList.contains('finalizar')) {
+            var cita = e.target.parentElement.parentElement;
+            var id_cita = cita.querySelector('#cita').textContent;
+            Swal.fire({
+                title: 'Confirmación',
+                text: "¿Esta seguro de finalizar la reserva?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Si, finalizar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: "post",
+                        url: "http://127.0.0.1:8000/api/citas",
+                        data: {
+                            finalizar: id_cita
+                        }
+                    }).then(function(resp) {
+                        if (resp['Resp']) {
+                            Swal.fire(
+                                'Finalizado!',
+                                'La cita se dió por terminada',
+                                'success'
+                            ).then((result) => {
+                                document.location.reload();
+                            })
+
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                'La cita no pudo ser finalizada',
+                                'error'
+                            ).then((result) => {
+                                document.location.reload();
+                            })
+
+                        }
+
+                    });
+
+                }
+            })
+        }
+
+    });
+</script>
 {%endblock%}

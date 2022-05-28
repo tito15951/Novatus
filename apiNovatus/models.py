@@ -30,6 +30,7 @@ class Cita(models.Model):
     duracion=models.IntegerField(null=False,default=0)
     descripcion=models.TextField(max_length=200,null=False)
     placa_moto=models.TextField(max_length=6,null=False,default="")
+    estado=models.TextField(default='activa')
 
     def __str__(self):
         return str(self.id)+'-'+self.id_usuario.correo+' '+str(self.hora)+' '+self.id_tienda.nombre
