@@ -1,5 +1,3 @@
-from turtle import update
-from requests import request
 from apiNovatus.views.usuario import User
 from ..models import Comentario, Tienda, Usuario 
 from django.views import View
@@ -43,11 +41,11 @@ class mostrar_comentarios(View):
 
                     taller=Tienda.objects.filter(id=id_tiendaRequest).update(valoracion= resultado)
 
-                    return JsonResponse({'Resp2':True},safe=False,status=201)
+                    return JsonResponse({'Resp':True},safe=False,status=201)
                 except:
-                   return JsonResponse({'Resp3':False},safe=False,status=400)
+                   return JsonResponse({'Resp':False},safe=False,status=400)
             else:
-                return JsonResponse({'Resp4':False},safe=False,status=400)
+                return JsonResponse({'Resp':False},safe=False,status=400)
     
 
         else:

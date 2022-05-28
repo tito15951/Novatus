@@ -18,7 +18,7 @@ class User(View):
                 contraseniaRequest=request.POST['contrasenia']
                 user=Usuario.objects.filter(correo=correoRequest, contrasenia=contraseniaRequest)
                 if(user.count()>0):
-                    return JsonResponse({'Resp':True,'Rol':user.first().rol},safe=False,status=200)
+                    return JsonResponse({'Resp':True,'rol':user.first().rol},safe=False,status=200)
                 else:
                     return JsonResponse({'Resp':False},safe=False,status=200)
             else:

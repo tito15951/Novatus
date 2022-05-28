@@ -1,13 +1,27 @@
-from turtle import update
-from requests import request
-from apiNovatus.views.usuario import User
 from ..models import Cita, Comentario, Tienda, Usuario 
 from django.views import View
 from django.http import JsonResponse
 
 class mostrar_citas(View):
     def get(self,request):
-        if('listar' in request.GET):
+        if ('listar_tienda' in request.GET):
+            correo=request.GET['listar_tienda']
+            try:
+                usuario=Usuario.objects.get(correo=correo)
+                tienda=Tienda.objects.get(admin=usuario)
+                citas=Cita.objects.filter(id_tienda=tienda)
+                return JsonResponse(list(citas.values()),status=200,safe=False)
+            except:
+                return JsonResponse({'resp':False},status=404,safe=False)
+        elif 'listar_cliente' in request.GET:
+            correo=request.GET['listar_cliente']
+            try:
+                usuario=Usuario.objects.get(correo=correo)
+                citas=Cita.objects.filter(id_usuario=usuario)
+                return JsonResponse(list(citas.values()),status=200,safe=False)
+            except:
+                return JsonResponse({'resp':False},status=404,safe=False)
+        elif('listar' in request.GET):
             Mostrar_citas=Cita.objects.all()
             return JsonResponse(list(Mostrar_citas.values('id','id_tienda','id_usuario','hora', 'descripcion', 'placa_moto')),safe=False,status=200)
         elif('listar_id' in request.GET):
@@ -69,7 +83,6 @@ class mostrar_citas(View):
                     return JsonResponse({'Resp3':False},safe=False,status=400)
 
          elif('delete' in request.POST):
-
              if('id' in request.POST):
                 try:
                     idRequest=request.POST['id']

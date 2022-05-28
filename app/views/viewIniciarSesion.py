@@ -7,8 +7,9 @@ def cerrarSesion(request):
     try:
         del request.session['correo']
         del request.session['rol']
+        return redirect('index')
     except:
-        return redirect('login')
+        return redirect('index')
 
 def logear(request):
     if(request.POST):
@@ -16,13 +17,18 @@ def logear(request):
             correo=request.POST.get('email')
             contrasena=request.POST.get('contrasena')
             resp=Servi.iniciarSesion(correo,contrasena)
-            request.session['correo']=correo
-            request.session['rol']=resp['Resp']
-            print('Guardando en caché correctamente')
-            return redirect('agendamiento')
+            if resp['Resp']:
+                request.session['correo']=correo
+                request.session['rol']=resp['rol']
+                if resp['rol']=='cliente':
+                    return redirect('agendamiento')
+                if resp['rol']=='tienda':
+                    return redirect('citasTienda')
+            else:
+                messages.error(request,'Usuario o contraseña incorrecta')
+                return HttpResponseRedirect('login')
         else:
-            messages.error('Ingrese todos los campos')
-            print('Faltan datos')
+            messages.error(request,'Ingrese todos los campos')
             return HttpResponseRedirect('login')
 def vistaLogin(request):
     try:
@@ -32,5 +38,4 @@ def vistaLogin(request):
         correo='null'
         rol='null'
     datos={'correo':correo,'rol':rol}
-    print(datos)
     return render(request,'paginas/inisiarSesion.html',datos)

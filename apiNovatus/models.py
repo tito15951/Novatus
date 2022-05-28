@@ -26,13 +26,13 @@ class Cita(models.Model):
     id=models.BigAutoField(primary_key=True)
     id_tienda=models.ForeignKey(Tienda,on_delete=models.CASCADE)
     id_usuario=models.ForeignKey(Usuario,on_delete=models.CASCADE)
-    hora=models.DateTimeField(null=False)
+    hora=models.TextField(default="Sin hora")
     duracion=models.IntegerField(null=False,default=0)
     descripcion=models.TextField(max_length=200,null=False)
     placa_moto=models.TextField(max_length=6,null=False,default="")
 
     def __str__(self):
-        return self.id_usuario.correo+' '+str(self.hora)+' '+self.id_tienda.nombre
+        return str(self.id)+'-'+self.id_usuario.correo+' '+str(self.hora)+' '+self.id_tienda.nombre
 
 class Comentario(models.Model):
     id=models.BigAutoField(primary_key=True)
@@ -43,8 +43,15 @@ class Comentario(models.Model):
         return str(self.id)+' '+str(self.id_usuario.correo)+' '
 
 
-
-
+class Chat(models.Model):
+    id=models.BigAutoField(primary_key=True)
+    cita=models.ForeignKey(Cita,on_delete=models.CASCADE,default="")
+    origen=models.ForeignKey(Usuario,on_delete=models.CASCADE,related_name="origen")
+    destino=models.ForeignKey(Usuario,on_delete=models.CASCADE,related_name="destino")
+    mensaje=models.TextField(max_length=150)
+    hora=models.DateTimeField(null=True,auto_now=True)
+    def __str__(self):
+        return f"{self.id}-{self.origen.correo}->{self.destino.correo}: {self.mensaje[:10]}"
         
 class MedioPago(models.Model):
     id=models.BigAutoField(primary_key=True)

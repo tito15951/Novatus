@@ -14,7 +14,7 @@
             </div>
         </div>
         {%endif%}        
-        <div class="card-title text-center">Titulo</div>
+        <div class="card-title text-center" style="margin-top:3%"><img src="imagenes/imagenes/logo-novatus.png"></div>
         <br>
         <form action='crearCuentaPeticion' method="post" enctype="multipart/form-data">
             {%csrf_token%}
@@ -26,6 +26,7 @@
             <div class="row">
                 <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
             </div>
+            <br>
             <div class="row">
                 <label for="exampleFormControlInput1" class="form-label">Correo electrónico</label>
             </div>

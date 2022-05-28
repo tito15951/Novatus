@@ -6,14 +6,16 @@ from ..services import Servicios
 Servi=Servicios()
 
 def VistaCrearCuenta(request):
-    marcas=["Kawasaki","Honda","Kymco","Susuki"]
-    marcas.sort()
-    print(marcas)
-    datos={'marcas':marcas}
+    try:
+        correo=request.session['correo']
+        rol=request.session['rol']
+    except:
+        correo='null'
+        rol='null'
+    datos={'correo':correo,'rol':rol}
     return render(request,'paginas/crearCuenta.html',datos)
 
 def CrearCuenta(request):
-    print('Creando cuenta')
     nombre=request.POST.get('nombre')
     correo=request.POST.get('email')
     contrasena=request.POST.get('contrasena')
@@ -27,18 +29,16 @@ def CrearCuenta(request):
     if len(contrasena)<8:
         errores+=1
         messages.error(request,'Ingrese una contraseña mas larga')
-    print('Los datos son: ',nombre,' ',correo,' ',contrasena)
     if errores==0:
-        resp=Servi.registrarse(correo,nombre,contrasena,moto)
+        resp=Servi.registrarse(correo,nombre,contrasena)
         
         if(resp['Resp']):
             request.session['correo']=correo
             request.session['rol']=resp['Rol']
             return redirect('productosVer')
         else:
-            print('Tiene errores en la información')
+            messages.error(request,'El correo ya se encuentra registrado')
             return redirect('crearCuenta')    
     else:
-        print('Tiene errores en la información')
         return redirect('crearCuenta')
     

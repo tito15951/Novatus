@@ -1,10 +1,16 @@
-.card-center{
+.card-center {
     margin-top: 20% !important;
-    color:black !important
+    color: black !important
 }
-.hipervinculos{
+
+.hipervinculos {
     color: green !important;
 }
-label{
-    font-family: 'Times New Roman', Times, serif !important; 
+
+label {
+    font-family: 'Times New Roman', Times, serif !important;
+}
+
+.card-citas {
+    border-color: green !important;
 }

@@ -5,5 +5,5 @@ from django.http import HttpResponse, HttpResponseRedirect
 from ..services import Servicios
 Servi=Servicios()
 
-def vistaProductos(request):
-    return render(request,'paginas/productos.html')
+def viewModificarAgendamiento(request):
+    return render(request,'paginas/editarAgendamiento.html')
