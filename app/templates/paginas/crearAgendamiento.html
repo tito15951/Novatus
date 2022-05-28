@@ -2,7 +2,7 @@
 {%block contenido%}
 
 <div class="card" style="border-color:white;">
-    <div class="card-title" >Novatus</div>
+    <div class="card-title text-center" style="margin-top:3%" ><img src="imagenes/imagenes/logo-novatus.png" alt="50px"></div>
     <br>
     <label class="text-center" style="font-size:30px;">Generar reserva</label>
     <br>
@@ -12,12 +12,12 @@
                 <label for="exampleFormControlInput1" class="form-label">Taller</label>
             </div>
             <div class="row">
-                <input type="text" id="taller" name="taller" class="form-control" placeholder="Desplegable" autocomplete="off">
+                <input type="text" id="taller" name="taller" disabled value="{{taller}}"class="form-control" placeholder="Desplegable" autocomplete="off">
             </div>
         </div>
         <div class="offset-md-2 col-md-3">
             <div class="row">
-                <label for="exampleFormControlInput1" class="form-label">Fecha</label>
+                <label for="exampleFormControlInput1" class="form-label">Fechas disponibles</label>
             </div>
             <div class="row">
                 <input type="date" id="fecha" name="fecha" class="form-control" autocomplete="off">
@@ -31,12 +31,16 @@
                 <label for="exampleFormControlInput1" class="form-label">Servicio</label>
             </div>
             <div class="row">
-                <input type="text" id="servicio" name="servicio" class="form-control" placeholder="Desplegable" autocomplete="off">
+              <select class="form-control" name="servicio" id="servicio">
+                  {%for servicio in servicios%}
+                <option value="{{servicio}}">{{servicio}}</option>
+                  {%endfor%}
+              </select>
             </div>
         </div>
         <div class="offset-md-2 col-md-3">
             <div class="row">
-                <label for="exampleFormControlInput1" class="form-label">Hora</label>
+                <label for="exampleFormControlInput1" class="form-label">Horarios disponibles</label>
             </div>
             <div class="row">
                 <input type="time" id="hora" name="hora" class="form-control" autocomplete="off">
@@ -50,8 +54,12 @@
                 <label for="exampleFormControlInput1" class="form-label">Marca de motocicleta</label>
             </div>
             <div class="row">
-                <input type="text" id="marca" name="marca" class="form-control" placeholder="Desplegable" autocomplete="off">
-            </div>
+                <select class="form-control" name="marca_moto" id="marca_moto">
+                    {%for marca_moto in marcas%}
+                  <option value="{{marca_moto}}">{{marca_moto}}</option>
+                    {%endfor%}
+                </select>
+              </div>
         </div>
         <div class="offset-md-2 col-md-3">
             <div class="row">

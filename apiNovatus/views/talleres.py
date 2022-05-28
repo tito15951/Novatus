@@ -9,12 +9,12 @@ class workshops(View):
     def get(self,request):
         if('listar' in request.GET):
             Talleres=Tienda.objects.all()
-            return JsonResponse(list(Talleres.values('valoracion','nombre','direccion','tel')),safe=False,status=200)
+            return JsonResponse(list(Talleres.values('id','valoracion','nombre','direccion','tel')),safe=False,status=200)
         elif('listar_id' in request.GET):
-            if('id' in request.GET):
-                idRequest=request.GET['id']
+            if('listar_id' in request.GET):
+                idRequest=request.GET['listar_id']
                 taller=Tienda.objects.filter(id=idRequest)
-                return JsonResponse(list(taller.values('valoracion','nombre','direccion','tel')),safe=False,status=200)
+                return JsonResponse(list(taller.values('id','valoracion','nombre','direccion','tel')),safe=False,status=200)
 
         else:
             return JsonResponse({'Resp':'No implementado'},safe=False,status=404)
@@ -61,7 +61,7 @@ class workshops(View):
          elif('delete' in request.POST):
              if('id' in request.POST):
                 try:
-                    idRequest=request.POST['id']
+                    idRequest=request.POST['delete']
                 except:
                     return JsonResponse({'Resp1':False},safe=False,status=400)
                 Tienda.objects.filter(id=idRequest).delete()                

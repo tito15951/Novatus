@@ -1,38 +1,52 @@
-{% extends 'base.html' %}
-{%block contenido%}
+{% extends 'base.html' %} {%block contenido%}
 
 <div class="col-md-4 mx-auto">
     <div class="card card-center">
-        <div class="card-title text-center">Titulo</div>
+        <div class="card-title text-center" style="margin-top: 3%;">
+            <img src="imagenes/imagenes/logo-novatus.png">
+        </div>
         <br>
-        <div class="col-md-6 mx-auto">
-            <form method="post"  enctype="multipart/form-data" action="logearse">
+        <row>
+            <div class="col-md-8 mx-auto">
+                {%for mensaje in messages%}
+                <div class="alert alert-danger" role="alert">
+                    {{mensaje}}
+                </div>
+                {%endfor%}
+            </div>
+        </row>
+        <row>
 
-            {% csrf_token %}
-            <div class="row">
-                <label for="exampleFormControlInput1" class="form-label">Correo electrónico</label>
-            </div>
-            <div class="row">
-                <input type="email" id="email" name="email" class="form-control" autocomplete="off" />
-            </div>
-            <br>
-            <div class="row">
-                <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
-            </div>
-            <div class="row">
-                <input type="password" id="contrasena" name="contrasena" class="form-control" autocomplete="off">
-            </div>
-            <br>
-            <div class="row">
-                <button type="submit" class="btn btn-success">Iniciar</button>
-            </div>
-        </form>
-            <br>
-            <div class="row">
-                <button type="button" class="btn btn-link hipervinculos">Olvidé mi contraseña</button>
-            </div>
-        
-          </div>
+            <div class="col-md-6 mx-auto">
+
+                <form method="post" enctype="multipart/form-data" action="logearse">
+
+                    {% csrf_token %}
+                    <div class="row">
+                        <label for="exampleFormControlInput1" class="form-label">Correo electrónico</label>
+                    </div>
+                    <div class="row">
+                        <input type="email" id="email" name="email" class="form-control" autocomplete="off" />
+                    </div>
+                    <br>
+                    <div class="row">
+                        <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+                    </div>
+                    <div class="row">
+                        <input type="password" id="contrasena" name="contrasena" class="form-control" autocomplete="off">
+                    </div>
+                    <br>
+                    <div class="row">
+                        <button type="submit" class="btn btn-success">Iniciar</button>
+                    </div>
+                </form>
+        </row>
+        <br>
+        <div class="row">
+            <button type="button" class="btn btn-link hipervinculos">Olvidé mi contraseña</button>
+        </div>
+
+        </div>
     </div>
 </div>
 {%endblock%}

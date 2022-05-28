@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {%block contenido%}
+<div class="row">
+    <div class="col-md-6 mx-auto" style="margin-top: 1%;">
+        <div class="card">
+            <div class="card-title text-center" style="margin-top: 3%;">
+                <h3>Chat con la tienda {{nombre_tienda}}</h3>
+            </div>
+
+            <div class="scroll">
+                {%for chat in chats%} {%if correo != chat.origen_id%}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card destino">
+                            <div class="card-title">{{chat.origen_id}}<br>{{chat.hora}}</div>
+                            {{chat.mensaje}}
+                        </div>
+                    </div>
+                </div>
+                {%else%}
+                <div class="row">
+                    <div class="offset-md-6 col-md-6">
+                        <div class="card origen">
+                            <div class="card-title">{{chat.origen_id}}<br>{{chat.hora}}</div>
+                            {{chat.mensaje}}
+                        </div>
+                    </div>
+                </div>
+                {%endif%} {%endfor%}
+            </div>
+
+            <form enctype="multipart/form-data" method="post" action="nuevoMensaje">
+                <div class="input-group mb-3" style="padding: 4%;">
+                    {%csrf_token%}
+                    <input type="text" class="form-control" id="mensaje" name="mensaje" placeholder="Escriba su mensaje" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Enviar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .origen {
+        background-color: greenyellow;
+        border-color: greenyellow;
+        align-items: flex-end;
+        border-radius: 20px;
+        margin-top: 1%;
+        padding: 2%;
+    }
+    
+    .destino {
+        background-color: aqua;
+        border-color: aqua;
+        border-radius: 20px;
+        margin-top: 1%;
+        padding: 2%;
+    }
+    
+    .scroll {
+        width: 600px;
+        height: 380px;
+        line-height: 20px;
+        overflow: scroll;
+        border: white;
+        padding: 5px;
+    }
+</style>
+
+{% endblock %}

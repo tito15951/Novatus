@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apiNovatus',
     'app',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

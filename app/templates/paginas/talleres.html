@@ -1,7 +1,8 @@
-{% extends 'base.html' %}
-{%block contenido%}
+{% extends 'base.html' %} {%block contenido%}
 <div class="card" style="border-color: white;">
-    <div class="card-title text-center"><h3>Talleres aliados</h3></div>
+    <div class="card-title text-center">
+        <h3>Talleres aliados</h3>
+    </div>
     <div class="row">
         {%for taller in talleres%}
         <div class="col-md-3">
@@ -10,31 +11,31 @@
                 <div class="row">
                     <div class="col-md-9">
                         {%if taller.valoracion >= 1%}
-                        <i class="bi bi-star-fill text-warning"></i>
-                        {%endif%}
-                        {%if taller.valoracion >= 2%}
-                        <i class="bi bi-star-fill text-warning"></i>
-                        {%endif%}
-                        {%if taller.valoracion >= 3%}
-                        <i class="bi bi-star-fill text-warning"></i>
-                        {%endif%}
-                        {%if taller.valoracion >= 4%}
-                        <i class="bi bi-star-fill text-warning"></i>
-                        {%endif%}
-                        {%if taller.valoracion >= 5%}
-                        <i class="bi bi-star-fill text-warning"></i>
-                        {%endif%}
-                        <br>
-                        {{taller.nombre}}
+                        <i class="bi bi-star-fill text-warning"></i> {%endif%} {%if taller.valoracion >= 2%}
+                        <i class="bi bi-star-fill text-warning"></i> {%endif%} {%if taller.valoracion >= 3%}
+                        <i class="bi bi-star-fill text-warning"></i> {%endif%} {%if taller.valoracion >= 4%}
+                        <i class="bi bi-star-fill text-warning"></i> {%endif%} {%if taller.valoracion >= 5%}
+                        <i class="bi bi-star-fill text-warning"></i> {%endif%}
+                        <br> {{taller.nombre}}
                     </div>
                     <div class="col-md-2">
-                        <i class="bi bi-tools text-success" style="font-size:30px;"></i>
+                        <form action="crearAgendamiento" method="post" enctype="multipart/form-data">
+                            {%csrf_token%}
+                            <input id="id" name="id" style="display:none" value="{{taller.id}}"></input>
+                            <button class="bi bi-tools text-success reserva" type="submit" style="font-size:30px;"></button>
+                        </form>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         {%endfor%}
     </div>
 </div>
+<style>
+    .reserva {
+        background-color: white;
+        border-color: white;
+    }
+</style>
 {%endblock%}
