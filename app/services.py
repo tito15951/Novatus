@@ -50,6 +50,19 @@ class Servicios:
         resp=requests.get(dir)
         return resp.json()
 
+    def crea_cita(self,tienda,usuario,fecha,descripcion,placa_moto):
+        dir=self.dir+'citas'
+        datos={
+            'crear_cita':'',
+            'id_tienda':tienda,
+            'id_usuario':usuario,
+            'hora':fecha,
+            'descripcion':descripcion,
+            'placa_moto':placa_moto
+        }
+        resp=requests.post(dir,datos)
+        return resp.json()
+
     def crear_taller(self,admin,nombre,direccion,telefono,foto):
         dir=self.dir+'talleres'
         datos={
@@ -57,6 +70,7 @@ class Servicios:
             'nombre':nombre,
             'direccion':direccion,
             'tel':telefono,
+            'foto':foto,
             'crear_taller':''
         }
         resp=requests.post(dir,datos)
@@ -92,4 +106,14 @@ class Servicios:
         }
         resp=requests.post(dir,datos)
         return resp.json()
-    #def registrarse(self,correo,contrasena,nombre, )
+
+    def obtener_servicios(self):
+        dir=self.dir+'servicios'
+        resp=requests.get(dir)
+        return resp.json()
+
+    def nuevo_servicio(self,descripcion):
+        dir=self.dir+'servicios'
+        datos={'descripcion':descripcion}
+        resp=requests.post(dir,datos)
+        return resp.json()

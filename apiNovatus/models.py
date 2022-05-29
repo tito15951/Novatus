@@ -50,10 +50,18 @@ class Chat(models.Model):
     cita=models.ForeignKey(Cita,on_delete=models.CASCADE,default="")
     origen=models.ForeignKey(Usuario,on_delete=models.CASCADE,related_name="origen")
     destino=models.ForeignKey(Usuario,on_delete=models.CASCADE,related_name="destino")
-    mensaje=models.TextField(max_length=150)
+    mensaje=models.TextField(max_length=180)
+    a=models.TextField()
     hora=models.DateTimeField(null=True,auto_now=True)
     def __str__(self):
         return f"{self.id}-{self.origen.correo}->{self.destino.correo}: {self.mensaje[:10]}"
+
+class Servicio(models.Model):
+    id=models.BigAutoField(primary_key=True)
+    descripcion=models.TextField(max_length=50)
+
+    def __str__(self):
+        return str(self.id)+'-'+self.descripcion
         
 class MedioPago(models.Model):
     id=models.BigAutoField(primary_key=True)

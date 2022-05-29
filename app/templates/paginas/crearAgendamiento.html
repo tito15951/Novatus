@@ -6,100 +6,120 @@
     <label class="text-center" style="font-size:30px;">Generar reserva</label>
     <br>
     <div class="row">
-        <div class="offset-md-2 col-md-3">
-            <div class="row">
-                <label for="exampleFormControlInput1" class="form-label">Taller</label>
+        <div class="col-md-6 mx-auto">
+            {%for mensaje in messages%}
+            <div class="alert alert-warning" role="alert">
+                {{mensaje}}
             </div>
-            <div class="row">
-                <input type="text" id="taller" name="taller" disabled value="{{taller}}" class="form-control" placeholder="Desplegable" autocomplete="off">
-            </div>
-        </div>
-        <div class="offset-md-2 col-md-3">
-            <div class="row">
-                <label for="exampleFormControlInput1" class="form-label">Fechas disponibles</label>
-            </div>
-            <div class="row">
-                <input type="date" id="calendario" name="calendario" min="{{fecha}}" value="{{fecha}}" class="form-control" autocomplete="off">
-            </div>
+            {%endfor%}
         </div>
     </div>
-    <br>
-    <div class="row">
-        <div class="offset-md-2 col-md-3">
-            <div class="row">
-                <label for="exampleFormControlInput1" class="form-label">Servicio</label>
+
+    <form action="nuevaCita" method="post" enctype="multipart/form-data">
+        <input id="id_taller" name="id_taller" value="{{id_taller}}" style="display: none;" />
+        <div class="row">
+            <div class="offset-md-2 col-md-3">
+                <div class="row">
+                    <label for="exampleFormControlInput1" class="form-label">Taller</label>
+                </div>
+                <div class="row">
+                    <input type="text" id="taller" name="taller" disabled value="{{taller}}" class="form-control" placeholder="Desplegable" autocomplete="off">
+                </div>
             </div>
-            <div class="row">
-                <select class="form-control" name="servicio" id="servicio">
+            <div class="offset-md-2 col-md-3">
+                <div class="row">
+                    <label for="exampleFormControlInput1" class="form-label">Fechas disponibles</label>
+                </div>
+                <div class="row">
+                    <input type="date" id="calendario" name="calendario" onchange="revisarDisponibilidad('{{id_taller}}')" min="{{fecha}}" value="{{fecha}}" class="form-control" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="offset-md-2 col-md-3">
+                <div class="row">
+                    <label for="exampleFormControlInput1" class="form-label">Servicio</label>
+                </div>
+                <div class="row">
+                    <select class="form-control" name="servicio" id="servicio">
                   {%for servicio in servicios%}
-                <option value="{{servicio}}">{{servicio}}</option>
+                <option value="{{servicio.descripcion}}">{{servicio.descripcion}}</option>
                   {%endfor%}
               </select>
+                </div>
+            </div>
+            <div class="offset-md-2 col-md-3">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Horarios disponibles</label>
+                    <select class="form-control" name="hora" id="hora">
+              </select>
+                </div>
             </div>
         </div>
-        <div class="offset-md-2 col-md-3">
-            <div class="row">
-                <label for="exampleFormControlInput1" class="form-label">Horarios disponibles</label>
-            </div>
-            <div class="row">
-                <input type="time" id="hora" name="hora" class="form-control" autocomplete="off">
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="offset-md-2 col-md-3">
-            <div class="row">
-                <label for="exampleFormControlInput1" class="form-label">Marca de motocicleta</label>
-            </div>
-            <div class="row">
-                <select class="form-control" name="marca_moto" id="marca_moto">
+        <br>
+        <div class="row">
+            <div class="offset-md-2 col-md-3">
+                <div class="row">
+                    <label for="exampleFormControlInput1" class="form-label">Marca de motocicleta</label>
+                </div>
+                <div class="row">
+                    <select class="form-control" name="marca_moto" id="marca_moto">
                     {%for marca_moto in marcas%}
                   <option value="{{marca_moto}}">{{marca_moto}}</option>
                     {%endfor%}
                 </select>
+                </div>
+            </div>
+            <div class="offset-md-2 col-md-3">
+                <div class="row">
+                    <label for="exampleFormControlInput1" class="form-label">Placa</label>
+                </div>
+                <div class="row">
+                    <input type="text" id="placa" name="placa" class="form-control" placeholder="Placa" autocomplete="off">
+                </div>
             </div>
         </div>
-        <div class="offset-md-2 col-md-3">
-            <div class="row">
-                <label for="exampleFormControlInput1" class="form-label">Placa</label>
-            </div>
-            <div class="row">
-                <input type="text" id="placa" name="placa" class="form-control" placeholder="Placa" autocomplete="off">
-            </div>
-        </div>
-    </div>
-    <br>
-    <br>
-    <div class="row">
-        <button type="button" class="btn btn-success col-md-8 mx-auto"> Crear</button>
+        <br>
+        <br>
+        <div class="row">
+            {%csrf_token%}
+            <button type="submit" class="btn btn-success col-md-8 mx-auto"> Crear</button>
 
-    </div>
+        </div>
+    </form>
 </div>
 <script>
-    function formatearFecha(num) {
-        if (num < 10) {
-            return '0' + String(num)
-        } else {
-            return num
-        }
+    function revisarDisponibilidad(taller_id) {
+        normales = [7, 8, 9, 10, 11, 14, 15, 16]
+        cal = document.getElementById('calendario').value
+        option = document.getElementById('hora')
+        $.ajax({
+            method: 'get',
+            url: 'http://127.0.0.1:8000/api/citas?verificar_cita&id_tienda=' + taller_id + '&hora=' + cal,
+        }).then((resp) => {
+            ocupados = resp['Resp']
+            var aux = []
+            ocupados.forEach(hora => {
+                aux.push(Number(hora))
+            })
+            aux.forEach((hora_ocupada) => {
+                var indexHora = normales.indexOf(hora_ocupada)
+                normales.splice(indexHora, 1)
+            })
+
+            insercion = ``
+            normales.forEach((hora) => {
+                insercion += `<option value="${hora}:00:00">${hora}:00</option>`
+            })
+            console.log(insercion)
+            option.innerHTML = insercion
+            console.log('Los horarios disponibles son:', normales)
+
+        })
     }
 
-    /*function modificarCalendario() {
-        let now = new Date()
-        let nowModificated = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDay()
-
-        console.log('La fecha obtenida es:', now, ' y la fecha formateada es: ', nowModificated)
-        nowModificated = now.getFullYear() + '-' + formatearFecha(now.getMonth()) + '-' + formatearFecha(now.getDay())
-        console.log('La fecha obtenida es:', now, ' y la fecha formateada es: ', nowModificated)
-
-        cal = document.getElementById('calendario')
-        cal.min = nowModificated;
-        cal.setAtributte('minDate', nowModificated)
-        console.log('Modificar calendario')
-    }
-
-    modificarCalendario()*/
+    revisarDisponibilidad('{{id_taller}}')
 </script>
 
 {%endblock%}

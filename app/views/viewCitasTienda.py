@@ -8,7 +8,12 @@ Servi=Servicios()
 def viewCitasTienda(request):
     correo=request.session['correo']
     citas=Servi.listar_citas_taller(correo)
-    print(citas)
+    #print(citas)
+    for cita in citas:
+        cita['fecha']=cita['fecha_hora'].split(' ')[0]
+        cita['hora']=cita['fecha_hora'].split(' ')[1][0:5]
+
+        print(cita)
     rol=request.session['rol']
     datos={'correo':correo,'rol':rol,'citas':citas}
     return render(request,'paginas/citas.html',datos)

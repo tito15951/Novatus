@@ -17,6 +17,11 @@ def viewGestion(request):
     datos={'correo':correo,'rol':rol,'talleres':talleres,'usuarios_disponibles':usuarios_disponibles}
     return render(request,'paginas/gestionTalleres.html',datos)
 
+def nuevoServicio(request):
+    detalles=request.POST['servicio']
+    Servi.nuevo_servicio(detalles.capitalize())
+    messages.success(request,f"Se ha creado el servicio: {detalles.capitalize()} satisfactoriamente")
+    return redirect('gestionarTalleres')
 def nuevoTaller(request):
     form=FotoForm(request.POST, request.FILES)
     nombre=request.POST['nombre']

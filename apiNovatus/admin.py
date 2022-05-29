@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Chat, Cita, Comentario, MedioPago, Tienda, Usuario
+from .models import Chat, Cita, Comentario, MedioPago, Tienda, Usuario,Servicio
 
 # Register your models here.
 admin.site.register(Usuario)
@@ -8,3 +8,4 @@ admin.site.register(Tienda)
 admin.site.register(Cita)
 admin.site.register(MedioPago)
 admin.site.register(Chat)
+admin.site.register(Servicio)

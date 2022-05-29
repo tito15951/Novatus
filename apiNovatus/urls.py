@@ -4,6 +4,7 @@ from apiNovatus.views.comentarios import mostrar_comentarios
 from apiNovatus.views.usuario import User
 from apiNovatus.views.talleres import workshops
 from apiNovatus.views.chat import Conversacion
+from apiNovatus.views.servicios import Servi
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -13,4 +14,5 @@ urlpatterns = [
     path('comentarios', csrf_exempt(mostrar_comentarios.as_view()) ,name='cometarios'),
     path('citas', csrf_exempt(mostrar_citas.as_view()) ,name='citas'),
     path('chat',csrf_exempt(Conversacion.as_view()),name='chat'),
+    path('servicios',csrf_exempt(Servi.as_view()),name='servicios'),
 ]

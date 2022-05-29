@@ -27,6 +27,7 @@ class workshops(View):
                     telRequest=request.POST['tel']
                     foto=request.POST['foto']
                     admin=Usuario.objects.filter(correo=adminRequest)
+                    print('aca va bien')
                 except:
                     return JsonResponse({'Resp':False},safe=False,status=400)
                 try:

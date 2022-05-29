@@ -22,9 +22,9 @@ urlpatterns = [
     path('chat',viewChat.vistaChat,name='chat'),
     path('misAgendamientos',viewMisAgendamientos.viewMisAgendamientos,name='misAgendamientos'),
     path('gestionarTalleres',viewGestionarTalleres.viewGestion,name='gestionarTalleres'),
-
-
     #peticiones
+    path('nuevoServicio',viewGestionarTalleres.nuevoServicio,name='nuevoServicio'),
+    path('nuevaCita',viewCrearAgendamiento.CrearAgendamiento,name='nuevaCita'),
     path('nuevoTaller',viewGestionarTalleres.nuevoTaller,name='nuevoTaller'),
     path('nuevoComentario',viewMisAgendamientos.nuevoComentario,name='nuevoComentario'),
     path('cerrarSesion',viewIniciarSesion.cerrarSesion,name='cerrarSesion'),

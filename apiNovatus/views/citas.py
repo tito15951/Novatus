@@ -34,24 +34,14 @@ class mostrar_citas(View):
             if(('id_tienda' in request.GET) and ('hora' in request.GET)):
                 id_tiendaRequest=request.GET['id_tienda']
                 fechaRequest=request.GET['hora']
-
-                print(f"La tienda es {id_tiendaRequest} y la fecha es {fechaRequest}") 
-
                 id_tienda_cita=Cita.objects.filter(id_tienda = id_tiendaRequest,fecha_hora__startswith=fechaRequest)
-                print(list(id_tienda_cita.values()))
-
                 lista_hora=[]
-
                 for cita in id_tienda_cita: 
                     citaHoralocal=str(cita.fecha_hora)
                     hora=citaHoralocal.split()[1]
                     hora=hora.split(':')[0]
                     lista_hora.append(hora)
-
                 return JsonResponse({'Resp':lista_hora},safe=False,status=200)
-
-                    #horaRequestIngresada=str(horaRequest) 
-                           
         else:
             return JsonResponse({'Resp':'No implementado'},safe=False,status=404)
 
