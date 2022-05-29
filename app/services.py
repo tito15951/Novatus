@@ -24,6 +24,11 @@ class Servicios:
         resp=requests.post(dir,datos)
         return resp.json()
     
+    def listar_candidatis_administrador(self):
+        dir=self.dir+'usuarios?listar_usuario'
+        resp=requests.get(dir)
+        return resp.json()
+    
     #                TALLERES
     def listar_talleres(self):
         dir=self.dir+'talleres?listar'
@@ -40,10 +45,21 @@ class Servicios:
         resp=requests.get(dir)
         return resp.json()
 
-    
     def buscar_taller(self,id):
         dir=self.dir+'talleres?listar_id='+str(id)
         resp=requests.get(dir)
+        return resp.json()
+
+    def crear_taller(self,admin,nombre,direccion,telefono,foto):
+        dir=self.dir+'talleres'
+        datos={
+            'admin':admin,
+            'nombre':nombre,
+            'direccion':direccion,
+            'tel':telefono,
+            'crear_taller':''
+        }
+        resp=requests.post(dir,datos)
         return resp.json()
 
     #              CHAT

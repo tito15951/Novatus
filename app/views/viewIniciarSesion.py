@@ -22,8 +22,10 @@ def logear(request):
                 request.session['rol']=resp['rol']
                 if resp['rol']=='cliente':
                     return redirect('agendamiento')
-                if resp['rol']=='tienda':
+                elif resp['rol']=='tienda':
                     return redirect('citasTienda')
+                else:
+                    return redirect('gestionarTalleres')
             else:
                 messages.error(request,'Usuario o contraseña incorrecta')
                 return HttpResponseRedirect('login')

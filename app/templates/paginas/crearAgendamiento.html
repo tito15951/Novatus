@@ -1,8 +1,7 @@
-{% extends 'base.html' %}
-{%block contenido%}
+{% extends 'base.html' %} {%block contenido%}
 
 <div class="card" style="border-color:white;">
-    <div class="card-title text-center" style="margin-top:3%" ><img src="imagenes/imagenes/logo-novatus.png" alt="50px"></div>
+    <div class="card-title text-center" style="margin-top:3%"><img src="imagenes/imagenes/logo-novatus.png" alt="50px"></div>
     <br>
     <label class="text-center" style="font-size:30px;">Generar reserva</label>
     <br>
@@ -12,7 +11,7 @@
                 <label for="exampleFormControlInput1" class="form-label">Taller</label>
             </div>
             <div class="row">
-                <input type="text" id="taller" name="taller" disabled value="{{taller}}"class="form-control" placeholder="Desplegable" autocomplete="off">
+                <input type="text" id="taller" name="taller" disabled value="{{taller}}" class="form-control" placeholder="Desplegable" autocomplete="off">
             </div>
         </div>
         <div class="offset-md-2 col-md-3">
@@ -20,7 +19,7 @@
                 <label for="exampleFormControlInput1" class="form-label">Fechas disponibles</label>
             </div>
             <div class="row">
-                <input type="date" id="fecha" name="fecha" class="form-control" autocomplete="off">
+                <input type="date" id="calendario" name="calendario" min="{{fecha}}" value="{{fecha}}" class="form-control" autocomplete="off">
             </div>
         </div>
     </div>
@@ -31,7 +30,7 @@
                 <label for="exampleFormControlInput1" class="form-label">Servicio</label>
             </div>
             <div class="row">
-              <select class="form-control" name="servicio" id="servicio">
+                <select class="form-control" name="servicio" id="servicio">
                   {%for servicio in servicios%}
                 <option value="{{servicio}}">{{servicio}}</option>
                   {%endfor%}
@@ -59,23 +58,48 @@
                   <option value="{{marca_moto}}">{{marca_moto}}</option>
                     {%endfor%}
                 </select>
-              </div>
+            </div>
         </div>
         <div class="offset-md-2 col-md-3">
             <div class="row">
                 <label for="exampleFormControlInput1" class="form-label">Placa</label>
             </div>
             <div class="row">
-                <input type="text" id="placa" name="placa" class="form-control"  placeholder="Placa" autocomplete="off">
+                <input type="text" id="placa" name="placa" class="form-control" placeholder="Placa" autocomplete="off">
             </div>
         </div>
     </div>
     <br>
     <br>
     <div class="row">
-            <button type="button" class="btn btn-success col-md-8 mx-auto"> Crear</button>
-        
+        <button type="button" class="btn btn-success col-md-8 mx-auto"> Crear</button>
+
     </div>
 </div>
+<script>
+    function formatearFecha(num) {
+        if (num < 10) {
+            return '0' + String(num)
+        } else {
+            return num
+        }
+    }
+
+    /*function modificarCalendario() {
+        let now = new Date()
+        let nowModificated = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDay()
+
+        console.log('La fecha obtenida es:', now, ' y la fecha formateada es: ', nowModificated)
+        nowModificated = now.getFullYear() + '-' + formatearFecha(now.getMonth()) + '-' + formatearFecha(now.getDay())
+        console.log('La fecha obtenida es:', now, ' y la fecha formateada es: ', nowModificated)
+
+        cal = document.getElementById('calendario')
+        cal.min = nowModificated;
+        cal.setAtributte('minDate', nowModificated)
+        console.log('Modificar calendario')
+    }
+
+    modificarCalendario()*/
+</script>
 
 {%endblock%}

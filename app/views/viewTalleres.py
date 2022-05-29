@@ -13,5 +13,6 @@ def viewTalleres(request):
         correo='null'
         rol='null'
     talleres=Servi.listar_talleres()
+    print(talleres)
     datos={'correo':correo,'rol':rol,'talleres':talleres}
     return render(request,'paginas/talleres.html',datos)

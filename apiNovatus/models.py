@@ -18,6 +18,7 @@ class Tienda(models.Model):
     direccion=models.TextField(max_length=20,null=False)
     valoracion=models.IntegerField(default=0, null=False)
     tel=models.TextField(max_length=10,null=False)
+    foto=models.TextField(default='')
 
     def __str__(self):
         return str(self.id)+' '+self.nombre+'-'+self.admin.nombre

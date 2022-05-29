@@ -9,12 +9,11 @@ class workshops(View):
     def get(self,request):
         if('listar' in request.GET):
             Talleres=Tienda.objects.all()
-            return JsonResponse(list(Talleres.values('id','valoracion','nombre','direccion','tel')),safe=False,status=200)
+            return JsonResponse(list(Talleres.values()),safe=False,status=200)
         elif('listar_id' in request.GET):
-            if('listar_id' in request.GET):
-                idRequest=request.GET['listar_id']
-                taller=Tienda.objects.filter(id=idRequest)
-                return JsonResponse(list(taller.values('id','valoracion','nombre','direccion','tel')),safe=False,status=200)
+            idRequest=request.GET['listar_id']
+            taller=Tienda.objects.filter(id=idRequest)
+            return JsonResponse(list(taller.values())[0],safe=False,status=200)
 
         else:
             return JsonResponse({'Resp':'No implementado'},safe=False,status=404)
@@ -26,14 +25,17 @@ class workshops(View):
                     adminRequest=request.POST['admin']
                     direccionRequest=request.POST['direccion']
                     telRequest=request.POST['tel']
-                    admin=Usuario.objects.filter(correo=adminRequest).first()
+                    foto=request.POST['foto']
+                    admin=Usuario.objects.filter(correo=adminRequest)
                 except:
                     return JsonResponse({'Resp':False},safe=False,status=400)
                 try:
                     newtaller=Tienda.objects.create(nombre=nombreRequest,
-                                                admin=admin,
+                                                admin=admin.first(),
                                                 direccion=direccionRequest,
-                                                tel=telRequest)
+                                                tel=telRequest,
+                                                foto=foto)
+                    admin.update(rol='tienda')
                     return JsonResponse({'Resp':True},safe=False,status=201)
                 except:
                     return JsonResponse({'Resp':False},safe=False,status=400)
@@ -59,15 +61,16 @@ class workshops(View):
                 return JsonResponse({'Resp':False},safe=False,status=400)
 
          elif('delete' in request.POST):
-             if('id' in request.POST):
-                try:
-                    idRequest=request.POST['delete']
-                except:
-                    return JsonResponse({'Resp':False},safe=False,status=400)
-                Tienda.objects.filter(id=idRequest).delete()                
-                return JsonResponse({'Resp':True},safe=False,status=200)
-             else:
-                    return JsonResponse({'Resp':False},safe=False,status=400)
+            try:
+                idRequest=request.POST['delete']
+            except:
+                return JsonResponse({'Resp':False},safe=False,status=400)
+            t=Tienda.objects.filter(id=idRequest) 
+            t_list=list(t.values())[0]
+            print(t_list)      
+            Usuario.objects.filter(correo=t_list['admin_id']).update(rol='cliente')    
+            t.delete()     
+            return JsonResponse({'Resp':True},safe=False,status=200)
          else:
             return JsonResponse({'Resp':'No implementado'},safe=False,status=404)
         

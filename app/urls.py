@@ -9,6 +9,7 @@ from .views import viewCitasTienda
 from .views import viewTalleres
 from .views import viewChat
 from .views import viewMisAgendamientos
+from .views import viewGestionarTalleres
 urlpatterns = [
     path('',viewIndex.viewIndex,name='index'),
     path('login', viewIniciarSesion.vistaLogin,name='login'),
@@ -20,9 +21,11 @@ urlpatterns = [
     path('talleresAliados',viewTalleres.viewTalleres,name='talleresAliados'),
     path('chat',viewChat.vistaChat,name='chat'),
     path('misAgendamientos',viewMisAgendamientos.viewMisAgendamientos,name='misAgendamientos'),
+    path('gestionarTalleres',viewGestionarTalleres.viewGestion,name='gestionarTalleres'),
 
 
     #peticiones
+    path('nuevoTaller',viewGestionarTalleres.nuevoTaller,name='nuevoTaller'),
     path('nuevoComentario',viewMisAgendamientos.nuevoComentario,name='nuevoComentario'),
     path('cerrarSesion',viewIniciarSesion.cerrarSesion,name='cerrarSesion'),
     path('logearse',viewIniciarSesion.logear,name='logearse'),

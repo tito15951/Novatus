@@ -6,7 +6,10 @@ class User(View):
     def get(self,request):
         if('listar' in request.GET):
             users=Usuario.objects.all()
-            return JsonResponse(list(users.values('correo','nombre')),safe=False,status=200)
+            return JsonResponse(list(users.values()),safe=False,status=200)
+        elif 'listar_usuario' in request.GET:
+            users=Usuario.objects.all().exclude(rol='tienda').exclude(rol='admin')
+            return JsonResponse(list(users.values()),safe=False,status=200)
         else:
             return JsonResponse({'Resp':'No implementado'},safe=False,status=404)
 
