@@ -1,3 +1,4 @@
+from posixpath import split
 from ..models import Cita, Comentario, Tienda, Usuario 
 from django.views import View
 from django.http import JsonResponse
@@ -23,12 +24,34 @@ class mostrar_citas(View):
                 return JsonResponse({'resp':False},status=404,safe=False)
         elif('listar' in request.GET):
             Mostrar_citas=Cita.objects.all()
-            return JsonResponse(list(Mostrar_citas.values('id','id_tienda','id_usuario','hora', 'descripcion', 'placa_moto')),safe=False,status=200)
+            return JsonResponse(list(Mostrar_citas.values()),safe=False,status=200)
         elif('listar_id' in request.GET):
             if('id' in request.GET):
                 idRequest=request.GET['id']
                 cita=Cita.objects.filter(id=idRequest)
-                return JsonResponse(list(cita.values('id','id_tienda','id_usuario','hora', 'descripcion', 'placa_moto')),safe=False,status=200)
+                return JsonResponse(list(cita.values()),safe=False,status=200)
+        elif('verificar_cita' in request.GET):
+            if(('id_tienda' in request.GET) and ('hora' in request.GET)):
+                id_tiendaRequest=request.GET['id_tienda']
+                fechaRequest=request.GET['hora']
+
+                print(f"La tienda es {id_tiendaRequest} y la fecha es {fechaRequest}") 
+
+                id_tienda_cita=Cita.objects.filter(id_tienda = id_tiendaRequest,fecha_hora__startswith=fechaRequest)
+                print(list(id_tienda_cita.values()))
+
+                lista_hora=[]
+
+                for cita in id_tienda_cita: 
+                    citaHoralocal=str(cita.fecha_hora)
+                    hora=citaHoralocal.split()[1]
+                    hora=hora.split(':')[0]
+                    lista_hora.append(hora)
+
+                return JsonResponse({'Resp':lista_hora},safe=False,status=200)
+
+                    #horaRequestIngresada=str(horaRequest) 
+                           
         else:
             return JsonResponse({'Resp':'No implementado'},safe=False,status=404)
 
@@ -44,19 +67,20 @@ class mostrar_citas(View):
                     placa_motoRequest=request.POST['placa_moto']
                     id_usuario=Usuario.objects.filter(correo=id_usuarioRequest).first()
                     id_tienda=Tienda.objects.filter(id=id_tiendaRequest).first()
+
+                    newcita=Cita.objects.create(fecha_hora=horaRequest,
+                                                    descripcion=descripcionRequest,
+                                                    placa_moto=placa_motoRequest,
+                                                    id_usuario=id_usuario,
+                                                    id_tienda=id_tienda)
+                    return JsonResponse({'Resp2':True},safe=False,status=201)
+                    
                 except:
                     return JsonResponse({'Resp1':False},safe=False,status=400)
-                try:
-                    newcita=Cita.objects.create(hora=horaRequest,
-                                                descripcion=descripcionRequest,
-                                                placa_moto=placa_motoRequest,
-                                                id_usuario=id_usuario,
-                                                id_tienda=id_tienda)
-                    return JsonResponse({'Resp2':True},safe=False,status=201)
-                except:
-                    return JsonResponse({'Resp3':False},safe=False,status=400)
+                
              else:
                 return JsonResponse({'Resp':False},safe=False,status=400)
+        
          elif('update' in request.POST):
 
              if(('id_tienda' in request.POST) and ('hora' in request.POST) and ('descripcion' in request.POST) and ('placa_moto' in request.POST) ):
@@ -71,7 +95,7 @@ class mostrar_citas(View):
                     return JsonResponse({'Resp1':False},safe=False,status=400)
             
                 citas=Cita.objects.filter(id=idRequest).update(id_tienda=id_tiendaRequest,
-                                            hora=horaRequest,
+                                            fecha_hora=horaRequest,
                                             descripcion=descripcionRequest,
                                             placa_moto=placa_motoRequest)
                                             
@@ -92,12 +116,9 @@ class mostrar_citas(View):
                 Tienda.objects.filter(id=idRequest).delete()
                                             
                 return JsonResponse({'Resp':True},safe=False,status=200)
-
                 
-             else:
-                 
+             else:                 
                     return JsonResponse({'Resp3':False},safe=False,status=400)
-
 
          else:
             return JsonResponse({'Resp':'No implementado'},safe=False,status=404)

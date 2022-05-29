@@ -20,19 +20,19 @@ class Tienda(models.Model):
     tel=models.TextField(max_length=10,null=False)
 
     def __str__(self):
-        return self.nombre+'-'+self.admin.nombre
+        return str(self.id)+' '+self.nombre+'-'+self.admin.nombre
 
 class Cita(models.Model):
     id=models.BigAutoField(primary_key=True)
     id_tienda=models.ForeignKey(Tienda,on_delete=models.CASCADE)
     id_usuario=models.ForeignKey(Usuario,on_delete=models.CASCADE)
-    hora=models.TextField(default="Sin hora")
+    fecha_hora=models.TextField(default="Sin hora")
     duracion=models.IntegerField(null=False,default=0)
     descripcion=models.TextField(max_length=200,null=False)
     placa_moto=models.TextField(max_length=6,null=False,default="")
 
     def __str__(self):
-        return str(self.id)+'-'+self.id_usuario.correo+' '+str(self.hora)+' '+self.id_tienda.nombre
+        return str(self.id)+'-'+self.id_usuario.correo+' '+str(self.fecha_hora)+' '+self.id_tienda.nombre
 
 class Comentario(models.Model):
     id=models.BigAutoField(primary_key=True)
