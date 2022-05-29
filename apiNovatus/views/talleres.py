@@ -49,21 +49,21 @@ class workshops(View):
                     telRequest=request.POST['tel']
                     admin=Usuario.objects.filter(correo=adminRequest).first()
                 except:
-                    return JsonResponse({'Resp1':False},safe=False,status=400)
+                    return JsonResponse({'Resp':False},safe=False,status=400)
                 taller=Tienda.objects.filter(id=idRequest).update(nombre=nombreRequest,
                                             admin=adminRequest,
                                             direccion=direccionRequest,
                                             tel=telRequest)                 
                 return JsonResponse({'Resp':True},safe=False,status=200)
              else:
-                    return JsonResponse({'Resp3':False},safe=False,status=400)
+                return JsonResponse({'Resp':False},safe=False,status=400)
 
          elif('delete' in request.POST):
              if('id' in request.POST):
                 try:
                     idRequest=request.POST['delete']
                 except:
-                    return JsonResponse({'Resp1':False},safe=False,status=400)
+                    return JsonResponse({'Resp':False},safe=False,status=400)
                 Tienda.objects.filter(id=idRequest).delete()                
                 return JsonResponse({'Resp':True},safe=False,status=200)
              else:

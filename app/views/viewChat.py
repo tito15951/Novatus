@@ -25,23 +25,17 @@ def nuevoMensaje(request):
     usuario=request.session['usuario']
     cita=request.session['cita']
     if mensaje !='':
-        #print(f"Soy el usuario: {correo_origen}, en tienda quedo: {tienda} y en usuario: {usuario}")
         del request.session['tienda']
         del request.session['usuario']
         del request.session['cita']
         if tienda==correo_origen:
             origen=tienda
             destino=usuario
-            #print(f"De: {tienda} para: {usuario}, el mensaje es: {mensaje}, de la cita #{cita}")
         else:
             origen=usuario
             destino=tienda
-            #print(f"De: {usuario} para {tienda}, el mensaje es: {mensaje}, de la cita #{cita}")
         Servi.nuevo_mensaje(origen,destino,mensaje,cita)
         if request.session['rol']=='tienda':
             return redirect('citasTienda')
         else:
             return redirect('misAgendamientos')
-
-    #if origen==cita.
-    #return redirect('')

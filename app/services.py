@@ -63,4 +63,17 @@ class Servicios:
         }
         resp=requests.post(dir,datos)
         return resp.json()
+
+    #              COMENTARIOs
+    def nuevo_comentario(self,escritor,valoracion,tienda,cita):
+        dir=self.dir+'comentarios'
+        datos={
+            'crear_comentario':'',
+            'id_usuario':escritor,
+            'id_tienda':tienda,
+            'puntuacion':valoracion,
+            'cita':cita
+        }
+        resp=requests.post(dir,datos)
+        return resp.json()
     #def registrarse(self,correo,contrasena,nombre, )
