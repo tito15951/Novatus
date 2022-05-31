@@ -34,7 +34,7 @@ def CrearCuenta(request):
         
         if(resp['Resp']):
             request.session['correo']=correo
-            request.session['rol']=resp['Rol']
+            request.session['rol']='cliente'
             return redirect('productosVer')
         else:
             messages.error(request,'El correo ya se encuentra registrado')
