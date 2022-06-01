@@ -42,7 +42,7 @@ class User(View):
                     newUser=Usuario.objects.create(correo=correoRequest,
                                                 nombre=nombreRequest,
                                                 contrasenia=contraseniaRequest,
-                                                rol="usuario",
+                                                rol="cliente",
                                                 direccion="nulo",
                                                 telefono="nulo")
                     return JsonResponse({'Resp':True},safe=False,status=201)
