@@ -2,7 +2,8 @@ import requests
 
 class Servicios:
     def __init__(self):
-        self.dir="http://127.0.0.1:8000/api/"
+        self.dir="https://novatus2022-back.herokuapp.com/api/"
+
     def iniciarSesion(self,correo,contrasena):
         dir=self.dir+"usuarios"
         datos={
