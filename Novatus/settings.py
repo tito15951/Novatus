@@ -67,6 +67,7 @@ WSGI_APPLICATION = 'Novatus.wsgi.application'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CSRF_TRUSTED_ORIGINS = ['https://novatus2022-back.herokuapp.com']
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
