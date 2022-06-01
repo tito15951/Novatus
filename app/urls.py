@@ -10,6 +10,8 @@ from .views import viewTalleres
 from .views import viewChat
 from .views import viewMisAgendamientos
 from .views import viewGestionarTalleres
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('',viewIndex.viewIndex,name='index'),
     path('login', viewIniciarSesion.vistaLogin,name='login'),
@@ -31,4 +33,4 @@ urlpatterns = [
     path('logearse',viewIniciarSesion.logear,name='logearse'),
     path('crearCuentaPeticion',viewCrearCuenta.CrearCuenta,name='crearCuentaPeticion'),
     path('nuevoMensaje',viewChat.nuevoMensaje,name='nuevoMensaje'),
-]
+]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
