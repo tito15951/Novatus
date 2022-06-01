@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apiNovatus',
     'app',
-    'rest_framework'
+    'rest_framework',
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -41,6 +42,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'Novatus.urls'
@@ -62,6 +64,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Novatus.wsgi.application'
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Database
