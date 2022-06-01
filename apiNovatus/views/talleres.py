@@ -1,4 +1,4 @@
-from turtle import update
+
 from requests import request
 from apiNovatus.views.usuario import User
 from ..models import Tienda, Usuario 
