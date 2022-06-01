@@ -35,7 +35,9 @@ def CrearCuenta(request):
         if(resp['Resp']):
             request.session['correo']=correo
             request.session['rol']='cliente'
+            # return redirect('productosVer')
             return redirect('talleresAliados')
+            
         else:
             messages.error(request,'El correo ya se encuentra registrado')
             return redirect('crearCuenta')    
