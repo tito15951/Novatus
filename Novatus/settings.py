@@ -13,7 +13,7 @@ SECRET_KEY = '^$md2qk-22!m&7rt)lq140y8tk!ngv%cy^o&!u5-(99il=aqj#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [*]
 #STATICFILES_DIRS=['C:/Users/Javier Martinez/Desktop/Novatus/Novatus/app/templates/static']
 #STATICFILES_DIRS=["C:/Users/quint/Desktop/Semestre IX/Ingenieria de Software III/Final/Novatus/app/templates/static"]
 STATICFILES_DIRS=["/home/javier159/Escritorio/Semestre 9/Novatus/app/templates/static"]
@@ -115,7 +115,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'Staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS=(
