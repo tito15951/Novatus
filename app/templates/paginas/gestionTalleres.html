@@ -157,7 +157,7 @@
 <script>
     function detalles(id_tienda) {
         $.ajax({
-            url: 'http://127.0.0.1:8000/api/talleres?listar_id=' + id_tienda
+            url: 'https://novatus2022-back.herokuapp.com/api/talleres?listar_id=' + id_tienda
         }).then((datos) => {
             //console.log(datos)
             let estrellas = ``;
@@ -202,7 +202,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     method: 'post',
-                    url: "http://127.0.0.1:8000/api/talleres",
+                    url: "https://novatus2022-back.herokuapp.com/api/talleres",
                     data: {
                         delete: id_taller
                     }
