@@ -68,12 +68,12 @@ WSGI_APPLICATION = 'Novatus.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.pg2',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3',
-        'Host': 'ec2-54-211-255-161.compute-1.amazonaws.com',
-        'User': 'zhjrwjkccsecvj',
-        'Password':'410e905c18c8e2dbffbfdefaffc6ad28584f935707dc864f72b551745bf37458',
-        'Port': '5432',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd5p9dsqnmt8dot',
+        'HOST': 'ec2-54-211-255-161.compute-1.amazonaws.com',
+        'USER': 'zhjrwjkccsecvj',
+        'PASSWORD':'410e905c18c8e2dbffbfdefaffc6ad28584f935707dc864f72b551745bf37458',
+        'PORT': '5432',
     }
 }
 
