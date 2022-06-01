@@ -96,7 +96,7 @@
         option = document.getElementById('hora')
         $.ajax({
             method: 'get',
-            url: 'api/citas?verificar_cita&id_tienda=' + taller_id + '&hora=' + cal,
+            url: 'https://novatus2022-back.herokuapp.com/api/citas?verificar_cita&id_tienda=' + taller_id + '&hora=' + cal,
         }).then((resp) => {
             ocupados = resp['Resp']
             var aux = []
